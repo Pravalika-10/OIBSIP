@@ -110,7 +110,7 @@ class Account
 
 }
 
-public class ATM_Interface {
+public class Atm_Interface {
     public static void main(String args[])
     {
         System.out.println("Welcome to the DDFC Bank!!!");
