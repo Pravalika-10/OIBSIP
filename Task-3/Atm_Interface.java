@@ -2,27 +2,27 @@ import java.util.*;
 class Account
 {
     String Name;
-    String User_name;
-    String Password;
+    String Username;
+    String Pwd;
     String Account;
-    float balance = 0.0f;
+    float bal = 0.0f;
     int transactions = 0;
 
-    public Account(String m, String n, String o, String p) //parameterized constructor for registering the account of the customer
+    public Account(String a, String b, String c, String d) //parameterized constructor for registering the account of the customer
     {
-        Name = m;
-        User_name = n;
-        Password = o;
-        Account  = p;
-        System.out.println("Account Created Successfully\n");
+        Name = a;
+        Username = b;
+        Pwd = c;
+        Account  = d;
+        System.out.println("Account created successfully\n");
     }
     public boolean signin()
      {
          boolean isLogin = false;
          Scanner sc = new Scanner(System.in);
              System.out.print("\nEnter Your Username - ");
-             String Username = sc.nextLine();
-             if ( Username.equals(User_name) ) {
+             String Usrnm = sc.nextLine();
+             if ( Usrnm.equals(Username) ) {
                      System.out.print("\nEnter Your Password - ");
                      String pass = sc.nextLine();
                      if ( pass.equals(pass) ) {
@@ -36,51 +36,65 @@ class Account
              }
              else {
                  System.out.println("Username not found\n");
-
          }
          return isLogin;
 
     }
-    public void deposit()
+    public void Deposit()
     {
         Scanner sc =  new Scanner(System.in);
         System.out.println("Enter amount to deposit:\n");
-        float money = sc.nextFloat();
-        if(money <= 0.0)
+        float mny = sc.nextFloat();
+        if(mny <= 0.0)
         {
             System.out.println("Enter valid amount\n");
             transactions++;
 
         }
         else {
-            balance = balance + money;
-            System.out.println(money + " deposited successfully\n");
+            bal = bal + mny;
+            System.out.println(mny + " deposited successfully\n");
             transactions++;
 
         }
 
 
     }
-    public void current_balance()
+     public void Withdrawl()
     {
-        System.out.println("Your current balance is " + balance + " rupees only\n");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter amount to withdrawl : \n");
+        float withdraw = sc.nextFloat();
+        if(withdraw >= bal)
+        {
+            System.out.println("Low Balance!!!" + "" + "\n");
+        }
+        else
+        {
+            System.out.println(withdraw + " withdrawn successfully\n");
+            bal = bal - withdraw;
+        }
+    }
+    public void Current_balance()
+    {
+        System.out.println("Your current balance is " + bal + " rupees only\n");
         transactions++;
     }
-    public void transaction_history()
+    public void Transaction_history()
     {
         System.out.println("Transactions done in this session is " + transactions);
     }
-    public void transfer()
+    public void Transfer()
     {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the recepient name : \n");
         String receiver = sc.nextLine();
         System.out.println("Enter the amount to be transferred: \n");
         float transfer_amount = sc.nextFloat();
-        if(transfer_amount > 0 && balance > transfer_amount) {
-            System.out.println("Enter the Account Number of the recepient:\n");
+        if(transfer_amount > 0 && bal > transfer_amount) {
+            System.out.println("Enter the account Number of the recepient:\n");
             String receiver_acc = sc.next();
-            balance = balance - transfer_amount;
+            bal = bal - transfer_amount;
             System.out.println("Amount " + transfer_amount + " transferred successfully");
             transactions++;
         }
@@ -91,22 +105,6 @@ class Account
         }
 
     }
-    public void withdrawl()
-    {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter amount to withdrawl : \n");
-        float withdraw = sc.nextFloat();
-        if(withdraw >= balance)
-        {
-            System.out.println("Low Balance!!!" + "" + "\n");
-        }
-        else
-        {
-            System.out.println(withdraw + " withdrawn successfully\n");
-            balance = balance - withdraw;
-        }
-    }
-
 
 }
 
@@ -118,18 +116,18 @@ public class Atm_Interface {
 
             System.out.println("Enter your choice: \n1.Banking \n2.Exit\n");
             Scanner sc = new Scanner(System.in);
-            int option = sc.nextInt();
-            if (option == 1) {
+            int opt = sc.nextInt();
+            if (opt == 1) {
                 System.out.println("Enter your name:\n");
                 String nam = sc.next();
                 System.out.println("\n");
                 System.out.println("Enter the user name:\n");
                 String user_name = sc.next();
                 System.out.println("Enter the password:\n");
-                String pwd = sc.next();
+                String pswd = sc.next();
                 System.out.println("Enter your account number:\n");
                 String acc = sc.next();
-                Account a = new Account(nam, user_name, pwd, acc);
+                Account a = new Account(nam, user_name, pswd, acc);
                 System.out.println("Do you want to login: Yes/No\n");
                 String want = sc.next();
                 if (want.equalsIgnoreCase("Yes")) {
@@ -137,23 +135,23 @@ public class Atm_Interface {
                         System.out.println("Please select the banking options\n");
                         boolean finished = false;
                         while (!finished) {
-                            System.out.println("\n1.Deposit \n2.Withdrawl \n3. Bank Balance  \n4.Transactions Done \n 5.Transfer \n");
-                            int opt = sc.nextInt();
-                            switch (opt) {
+                            System.out.println("\n1.Deposit \n2.Withdrawl \n3. Bank Balance  \n4.Transactions Done \n5.Transfer \n");
+                            int op = sc.nextInt();
+                            switch (op) {
                                 case 1:
-                                    a.deposit();
+                                    a.Deposit();
                                     break;
                                 case 2:
-                                    a.withdrawl();
+                                    a.Withdrawl();
                                     break;
                                 case 3:
-                                    a.current_balance();
+                                    a.Current_balance();
                                     break;
                                 case 4:
-                                    a.transaction_history();
+                                    a.Transaction_history();
                                     break;
                                 case 5:
-                                    a.transfer();
+                                    a.Transfer();
                                     break;
                                 default:
                                     finished = true;
@@ -164,13 +162,14 @@ public class Atm_Interface {
                         }
                     }
 
-                } else {
+                } 
+                else {
                     System.out.println("Thank You! and Have a nice day!!!\n");
                 }
 
-            } else {
+            } 
+            else {
                 System.out.println("Thank You! Have a nice day\n");
             }
-
     }
 }
